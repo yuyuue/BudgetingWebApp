@@ -3,20 +3,23 @@ from django.db import models
 # Create your models here.
 class AssetCategory(models.Model):
     name = models.CharField(max_length=50)
-    is_credit = models.BooleanField
+
+    def __str__(self):
+        return self.name
 
 
 class Asset(models.Model):
     name = models.CharField(max_length=50)
     category = models.ForeignKey(AssetCategory, on_delete=models.PROTECT)
-    amount = models.IntegerField
+    amount = models.IntegerField(default=0)
     add_date = models.DateTimeField(auto_now_add=True)
+    is_credit = models.BooleanField(default=False)
+    withdrawal_account = models.ForeignKey('self', null=True, on_delete=models.PROTECT)
+    payment_due_date = models.DateTimeField(null=True)
+    payment_confirmation_date = models.DateField(null=True)
 
-
-class Credit(models.Model):
-    withdrawal_account = models.ForeignKey(AssetCategory, on_delete=models.PROTECT)
-    payment_due_date = models.DateTimeField
-    payment_confirmation_date = models.DateField
+    def __str__(self):
+        return self.name
 
 
 class IncomeCategory(models.Model):
