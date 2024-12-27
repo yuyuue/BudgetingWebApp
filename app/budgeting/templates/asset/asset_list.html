@@ -6,6 +6,13 @@
     <title>Asset List</title>
 </head>
 <body>
-    
+    <h1>資産管理画面</h1>
+    {% if asset_list %}
+    <ul>
+        {% for asset in asset_list %}
+        <li><a href="{% url 'budgeting:assetdetail' asset.id %}">{{ asset.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
 </body>
 </html>

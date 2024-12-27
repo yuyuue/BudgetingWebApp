@@ -17,10 +17,10 @@ class AssetDetailView(generic.DetailView):
 
 class AssetCategoryListView(generic.ListView):
     model = AssetCategory
-    template_name = 'asset/cat_list.html'
+    template_name = 'asset/category_list.html'
     context_object_name = 'asset_category_list'
 
 
 class AssetCategoryDetailView(generic.DetailView):
     model = AssetCategory
-    template_name = 'asset/cat_detail.html'
+    template_name = 'asset/category_detail.html'
