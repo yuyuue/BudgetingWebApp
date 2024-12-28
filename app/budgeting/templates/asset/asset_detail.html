@@ -7,5 +7,41 @@
 </head>
 <body>
     <h1>資産編集画面</h1>
+    {% if asset %}
+    <form action="{% url 'budgeting:mod_asset' asset.id %}" method="post">
+        {% csrf_token %}
+        <ul>
+            <li>
+                <label for="asset_category">カテゴリ：</label>
+                <input type="text" name="asset_category" id="asset_category" value="{{ asset.category }}">
+            </li>
+            <li>
+                <label for="asset_name">資産名：</label>
+                <input type="text" name="asset_name" id="asset_name" value="{{ asset.name }}">
+            </li>
+            <li>
+                <label for="asset_amount">金額：</label>
+                <input type="number" name="asset_amount" id="asset_amount" value="{{ asset.amount }}">
+            </li>
+            <li>
+                <label for="asset_is_credit">クレジット</label>
+                <input type="checkbox" name="asset_is_credit" id="asset_is_credit">
+            </li>
+            <li>
+                <label for="asset_withdrawal_account">引き落とし口座：</label>
+                <input type="text" name="asset_withdrawal_account" id="asset_withdrawal_account" value="{{ asset.withdrawal_account }}">
+            </li>
+            <li>
+                <label for="asset_payment_due_date">決済日：</label>
+                <input type="datetime" name="asset_payment_due_date" id="asset_payment_due_date" value="{{ asset.payment_due_date }}">
+            </li>
+            <li>
+                <label for="asset_payment_confirmation_date">支払額確定日：</label>
+                <input type="datetime" name="asset_payment_confirmation_date" id="asset_payment_confirmation_date" value="{{ asset.payment_confirmation_date }}">
+            </li>
+        </ul>
+        <input type="submit" value="更新">
+    </form>
+    {% endif %}
 </body>
 </html>

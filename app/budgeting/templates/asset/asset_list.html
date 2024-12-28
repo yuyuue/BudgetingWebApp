@@ -10,7 +10,7 @@
     {% if asset_list %}
     <ul>
         {% for asset in asset_list %}
-        <li><a href="{% url 'budgeting:assetdetail' asset.id %}">{{ asset.name }}</a></li>
+        <li><a href="{% url 'budgeting:asset_detail' asset.id %}">{{ asset.name }}</a></li>
         {% endfor %}
     </ul>
     {% endif %}
