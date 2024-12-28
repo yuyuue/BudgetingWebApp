@@ -32,9 +32,25 @@ class AssetCategoryDetailView(generic.DetailView):
 
 def mod_asset(request, asset_id):
     asset = get_object_or_404(Asset, pk=asset_id)
+
+    # Modify asset fields.
+    asset.name = request.POST['name']
+    asset.amount = request.POST['amount']
+    # Info relate to credit.
+    if 'asset_is_credit' in request.POST:
+        asset.withdrawal_account = request.POST['withdrawal_account']
+        asset.payment_due_date = request.POST['payment_due_date']
+        asset.payment_confirmation_date = request.POST['payment_confirmation_date']
+    asset.save()
+    
     return HttpResponseRedirect(reverse('budgeting:asset_detail', args=(asset.id,)))
 
 
 def mod_asset_category(request, asset_category_id):
     asset_category = get_object_or_404(Asset, pk=asset_category_id)
+
+    # Modify asset category fields.
+    asset_category.name = request.POST['name']
+    asset_category.save()
+    
     return HttpResponseRedirect(reverse('budgeting:asset_category', args=(asset_category.id,)))

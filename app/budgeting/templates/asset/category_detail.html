@@ -12,8 +12,8 @@
         {% csrf_token %}
         <ul>
             <li>
-                <label for="asset_category_name">カテゴリ名：</label>
-                <input type="text" name="asset_category_name" id="asset_category_name" value="{{ asset_category.name }}">
+                <label for="name">カテゴリ名：</label>
+                <input type="text" name="name" id="name" value="{{ asset_category.name }}">
             </li>
             <input type="submit" value="更新">
         </ul>

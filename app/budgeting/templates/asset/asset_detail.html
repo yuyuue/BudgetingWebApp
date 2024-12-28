@@ -12,32 +12,32 @@
         {% csrf_token %}
         <ul>
             <li>
-                <label for="asset_category">カテゴリ：</label>
-                <input type="text" name="asset_category" id="asset_category" value="{{ asset.category }}">
+                <label for="category">カテゴリ：</label>
+                <input type="text" name="category" id="category" value="{{ asset.category }}">
             </li>
             <li>
-                <label for="asset_name">資産名：</label>
-                <input type="text" name="asset_name" id="asset_name" value="{{ asset.name }}">
+                <label for="name">資産名：</label>
+                <input type="text" name="name" id="name" value="{{ asset.name }}">
             </li>
             <li>
-                <label for="asset_amount">金額：</label>
-                <input type="number" name="asset_amount" id="asset_amount" value="{{ asset.amount }}">
+                <label for="amount">金額：</label>
+                <input type="number" name="amount" id="amount" value="{{ asset.amount }}">
             </li>
             <li>
-                <label for="asset_is_credit">クレジット</label>
-                <input type="checkbox" name="asset_is_credit" id="asset_is_credit">
+                <label for="is_credit">クレジット</label>
+                <input type="checkbox" name="is_credit" id="is_credit">
             </li>
             <li>
-                <label for="asset_withdrawal_account">引き落とし口座：</label>
-                <input type="text" name="asset_withdrawal_account" id="asset_withdrawal_account" value="{{ asset.withdrawal_account }}">
+                <label for="withdrawal_account">引き落とし口座：</label>
+                <input type="text" name="withdrawal_account" id="withdrawal_account" value="{{ asset.withdrawal_account }}">
             </li>
             <li>
-                <label for="asset_payment_due_date">決済日：</label>
-                <input type="datetime" name="asset_payment_due_date" id="asset_payment_due_date" value="{{ asset.payment_due_date }}">
+                <label for="payment_due_date">決済日：</label>
+                <input type="datetime" name="payment_due_date" id="payment_due_date" value="{{ asset.payment_due_date }}">
             </li>
             <li>
-                <label for="asset_payment_confirmation_date">支払額確定日：</label>
-                <input type="datetime" name="asset_payment_confirmation_date" id="asset_payment_confirmation_date" value="{{ asset.payment_confirmation_date }}">
+                <label for="payment_confirmation_date">支払額確定日：</label>
+                <input type="datetime" name="payment_confirmation_date" id="payment_confirmation_date" value="{{ asset.payment_confirmation_date }}">
             </li>
         </ul>
         <input type="submit" value="更新">
