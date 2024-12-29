@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Flow</title>
+</head>
+<body>
+    <h1>利用履歴編集画面</h1>
+    {% if cash_flow %}
+    <form action="{% url 'budgeting:cash_flow_list' %}" method="post">
+        {% csrf_token %}
+        <ul>
+            <li>
+                <label for="category">カテゴリ：</label>
+                <input type="text" name="category" id="category" value="{{ cash_flow.category }}">
+            </li>
+            <li>
+                <label for="asset">資産：</label>
+                <input type="text" name="asset" id="asset" value="{{ cash_flow.asset }}">
+            </li>
+            <li>
+                <label for="name">名前：</label>
+                <input type="text" name="name" id="name" value="{{ cash_flow.name }}">
+            </li>
+            <li>
+                <label for="amount">金額：</label>
+                <input type="number" name="amount" id="amount" value="{{ cash_flow.amount }}">
+            </li>
+            <li>
+                <label for="date">利用日：</label>
+                <input type="datetime" name="date" id="date" value="{{ cash_flow.date }}">
+            </li>
+            <li>
+                <label for="memo">メモ：</label>
+                <input type="datetime" name="memo" id="memo" value="{{ cash_flow.memo }}">
+            </li>
+        </ul>
+        <input type="submit" value="更新">
+    </form>
+    {% endif %}
+</body>
+</html>
