@@ -32,6 +32,29 @@ def mod_asset_category(request, asset_category_id):
     return HttpResponseRedirect(reverse('budgeting:asset_category', args=(asset_category.id,)))
 
 
+def mod_cash_flow(request, cash_flow_id):
+    cash_flow = get_object_or_404(CashFlow, pk=cash_flow_id)
+    
+    # Modify cash flow fields.
+    cash_flow.name = request.POST['name']
+    cash_flow.amount = request.POST['amount']
+    cash_flow.memo = request.POST['memo']
+
+    cash_flow.save()
+
+    return HttpResponseRedirect(reverse('budgeting:cash_flow', args=(cash_flow.id,)))
+
+def mod_cash_flow_category(request, cash_flow_category_id):
+    cash_flow_category = get_object_or_404(CashFlowCategory, pk=cash_flow_category_id)
+
+    # Modify cash flow category fields.
+    cash_flow_category.name = request.POST['name']
+
+    cash_flow_category.save()
+
+    return HttpResponseRedirect(reverse('budgeting:cash_flow_category', args=(cash_flow_category.id,)))
+
+
 class AssetListView(generic.ListView):
     model = Asset
     template_name = 'asset/asset_list.html'

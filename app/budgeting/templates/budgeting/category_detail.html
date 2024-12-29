@@ -8,7 +8,7 @@
 <body>
     <h1>利用履歴カテゴリ編集画面</h1>
     {% if cash_flow_category %}
-    <form action="{% url 'budgeting:cash_flow_category_list' %}" method="post">
+    <form action="{% url 'budgeting:mod_cash_flow_category' cash_flow_category.id %}" method="post">
         {% csrf_token %}
         <ul>
             <li>
