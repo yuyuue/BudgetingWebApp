@@ -22,17 +22,21 @@ class Asset(models.Model):
         return self.name
 
 
-class IncomeCategory(models.Model):
-    pass
+class CashFlowCategory(models.Model):
+    name = models.CharField(max_length=50)
+    is_income = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
 
 
-class Income(models.Model):
-    pass
+class CashFlow(models.Model):
+    name = models.CharField(max_length=50)
+    category = models.ForeignKey(CashFlowCategory, on_delete=models.PROTECT)
+    amount = models.IntegerField(default=0)
+    asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
+    date = models.DateTimeField()
+    memo = models.CharField(null=True, max_length=200)
 
-
-class ExpenceCategory(models.Model):
-    pass
-
-
-class Expence(models.Model):
-    pass
+    def __str__(self):
+        return self.name

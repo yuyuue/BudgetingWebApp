@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asset Category</title>
+    <title>Cash Flow Category</title>
 </head>
 <body>
-    <h1>資産カテゴリ編集画面</h1>
-    {% if asset_category %}
-    <form action="{% url 'budgeting:mod_asset_category' asset_category.id %}" method="post">
+    <h1>利用履歴カテゴリ編集画面</h1>
+    {% if cash_flow_category %}
+    <form action="{% url 'budgeting:mod_cash_flow_category' cash_flow_category.id %}" method="post">
         {% csrf_token %}
         <ul>
             <li>
                 <label for="name">カテゴリ名：</label>
-                <input type="text" name="name" id="name" value="{{ asset_category.name }}">
+                <input type="text" name="name" id="name" value="{{ cash_flow_category.name }}">
             </li>
         </ul>
         <input type="submit" value="更新">
