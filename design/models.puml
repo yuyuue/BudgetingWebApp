@@ -12,6 +12,7 @@ entity Asset {
     * AC_ID
     * asset_name
     * asset_amount
+    * add_date
 }
 
 entity CreditConfig{
@@ -41,7 +42,8 @@ entity CashFlow {
 }
 
 AssetCategory ||--o{ Asset
-Asset ||--o| CreditConfig
+Asset ||--o| CreditConfig : クレカ設定
+CreditConfig ||--|| Asset : 引落口座
 CashFlowCategory ||--o{CashFlow
 
 @enduml

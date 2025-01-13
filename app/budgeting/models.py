@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 class AssetCategory(models.Model):
     name = models.CharField(max_length=50)
+    is_credit = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -13,14 +14,19 @@ class Asset(models.Model):
     category = models.ForeignKey(AssetCategory, on_delete=models.PROTECT)
     amount = models.IntegerField(default=0)
     add_date = models.DateTimeField(auto_now_add=True)
-    is_credit = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+class Credit(models.Model):
+    asset = models.ForeignKey(Asset, on_delete=models.PROTECT)
     withdrawal_account = models.ForeignKey('self', null=True, on_delete=models.PROTECT)
     payment_due_date = models.DateTimeField(null=True)
     payment_confirmation_date = models.DateField(null=True)
 
     def __str__(self):
-        return self.name
-
+        return self.asset
+    
 
 class CashFlowCategory(models.Model):
     name = models.CharField(max_length=50)
