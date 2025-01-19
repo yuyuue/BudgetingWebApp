@@ -1,0 +1,45 @@
+@startuml models
+entity AssetCategory{
+    * AC_ID
+    --
+    * asset_category_name
+    * is_credit
+}
+
+entity Asset {
+    * A_ID
+    --
+    * AC_ID
+    * asset_name
+    * asset_amount
+    * add_date
+    * A_ID
+    * withdrawal_account
+    * payment_confirmation_date
+    * payment_due_date
+}
+
+entity CashFlowCategory {
+    * CFC_ID
+    --
+    * cash_flow_category_name
+    * is_income
+}
+
+entity CashFlow {
+    * CF_ID
+    --
+    * CFC_ID
+    cash_flow_name
+    * date
+    * A_ID
+    * cash_flow_amount
+    cash_flow_memo
+}
+
+AssetCategory ||--o{ Asset
+Asset ||--o| Asset : 引き落とし口座
+CashFlowCategory ||--o{CashFlow
+Asset ||--o{CashFlow
+
+@enduml
