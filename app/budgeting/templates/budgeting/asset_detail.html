@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>資産編集画面</h1>
+    {% if asset %}
+    <form action="{% url 'budgeting:mod_asset' asset.id %}" method="post">
+        {% csrf_token %}
+        <table>
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>入力</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><label for="category">カテゴリ：</label></td>
+                    <td><input type="text" name="category" id="category" value="{{ asset.category }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="asset_name">資産名：</label></td>
+                    <td><input type="text" name="asset_name" id="asset_name" value="{{ asset.name }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="amount">金額：</label></td>
+                    <td><input type="number" name="amount" id="amount" value="{{ asset.amount }}"></td>
+                </tr>
+                <!-- <label for="is_credit">クレジット</label>
+                <input type="checkbox" name="is_credit" id="is_credit"> -->
+                <tr>
+                    <td><label for="withdrawal_account">引き落とし口座：</label></td>
+                    <td><input type="text" name="withdrawal_account" id="withdrawal_account"
+                            value="{{ asset.withdrawal_account }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="payment_due_date">決済日：</label></td>
+                    <td><input type="datetime" name="payment_due_date" id="payment_due_date"
+                            value="{{ asset.payment_due_date }}"></td>
+                </tr>
+                <tr>
+                    <td><label for="payment_confirmation_date">支払額確定日：</label></td>
+                    <td><input type="datetime" name="payment_confirmation_date" id="payment_confirmation_date"
+                            value="{{ asset.payment_confirmation_date }}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="submit" value="更新">
+    </form>
+    {% endif %}
+</body>
+
+</html>

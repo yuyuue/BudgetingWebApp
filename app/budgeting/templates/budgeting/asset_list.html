@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset List</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>資産管理画面</h1>
+    {% if asset_list %}
+    <table>
+        <thead>
+            <th>No</th>
+            <th>資産名</th>
+            <th>資産カテゴリ</th>
+            <th>金額</th>
+        </thead>
+        <tbody>
+            {% for asset in asset_list %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'budgeting:asset_detail' asset.id %}">{{ asset.name }}</a></td>
+                <td>{{ asset.category }}</td>
+                <td>{{ asset.amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</body>
+
+</html>

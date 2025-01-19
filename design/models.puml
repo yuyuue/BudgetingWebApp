@@ -13,11 +13,6 @@ entity Asset {
     * asset_name
     * asset_amount
     * add_date
-}
-
-entity CreditConfig{
-    * CC_ID
-    --
     * A_ID
     * withdrawal_account
     * payment_confirmation_date
@@ -37,13 +32,14 @@ entity CashFlow {
     * CFC_ID
     cash_flow_name
     * date
+    * A_ID
     * cash_flow_amount
     cash_flow_memo
 }
 
 AssetCategory ||--o{ Asset
-Asset ||--o| CreditConfig : クレカ設定
-CreditConfig ||--|| Asset : 引落口座
+Asset ||--o| Asset : 引き落とし口座
 CashFlowCategory ||--o{CashFlow
+Asset ||--o{CashFlow
 
 @enduml

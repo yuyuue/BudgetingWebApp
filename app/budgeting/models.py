@@ -14,19 +14,12 @@ class Asset(models.Model):
     category = models.ForeignKey(AssetCategory, on_delete=models.PROTECT)
     amount = models.IntegerField(default=0)
     add_date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name
-
-class Credit(models.Model):
-    asset = models.OneToOneField(Asset, on_delete=models.PROTECT)
-    withdrawal_account = models.OneToOneField(Asset, null=True, on_delete=models.PROTECT, related_name='withdrawal_account')
+    withdrawal_account = models.ForeignKey("self",null=True, on_delete=models.PROTECT)
     payment_due_day = models.IntegerField(null=True)
     payment_confirmation_day = models.IntegerField(null=True)
 
     def __str__(self):
-        return self.asset.name
-    
+        return self.name    
 
 class CashFlowCategory(models.Model):
     name = models.CharField(max_length=50)
