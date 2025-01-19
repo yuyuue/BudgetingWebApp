@@ -32,11 +32,24 @@
                     <td><input type="text" name="asset_category_name" id="asset_category_name"
                             value="{{ asset_category.name }}"></td>
                 </tr>
+                <tr>
+                    <td>クレジット機能：</td>
+                    <td>
+                        <input type="checkbox" name="is_credit" id="is_credit"
+                            {% if asset_category.is_credit %}
+                                checked
+                            {% endif %}
+                        >
+                        <label for="is_credit">クレジット</label>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <input type="submit" value="更新">
     </form>
     {% endif %}
+    <a href="{% url 'budgeting:asset_list' %}">資産一覧へ</a>
+    <a href="{% url 'budgeting:asset_category_list' %}">資産カテゴリ一覧へ</a>
 </body>
 
 </html>
