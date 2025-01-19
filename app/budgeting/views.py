@@ -12,8 +12,23 @@ def mod_asset(request, pk):
     # Modify asset fields.
     asset.name = request.POST['asset_name']
     asset.amount = request.POST['amount']
-    asset.save()
+
+    asset_category = get_object_or_404(AssetCategory, pk=request.POST['category'])
+    asset.category = asset_category
+
+    if asset.category.is_credit:
+        if request.POST['withdrawal_account'] != '0':
+            withdrawal_account = Asset.objects.get(pk=request.POST['withdrawal_account'])
+            asset.withdrawal_account = withdrawal_account
+        asset.payment_due_day = request.POST['payment_due_day']
+        asset.payment_confirmation_day = request.POST['payment_confirmation_day']
+    else:
+        asset.withdrawal_account = None
+        asset.payment_due_day = None
+        asset.payment_confirmation_day = None
     
+    asset.save()
+
     return HttpResponseRedirect(reverse('budgeting:asset_detail', args=(asset.id,)))
 
 
@@ -22,6 +37,10 @@ def mod_asset_category(request, pk):
 
     # Modify asset category fields.
     asset_category.name = request.POST['asset_category_name']
+    if 'is_credit' in request.POST:
+        asset_category.is_credit = True
+    else:
+        asset_category.is_credit = False
     asset_category.save()
 
     return HttpResponseRedirect(reverse('budgeting:asset_category', args=(asset_category.id,)))
@@ -59,6 +78,12 @@ class AssetListView(ListView):
 class AssetDetailView(DetailView):
     model = Asset
     context_object_name = 'asset'
+
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context['asset_list'] = Asset.objects.all()
+        context["asset_category_list"] = AssetCategory.objects.all()
+        return context
 
 
 class AssetCategoryListView(ListView):

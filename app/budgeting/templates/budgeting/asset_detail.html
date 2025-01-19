@@ -29,7 +29,18 @@
             <tbody>
                 <tr>
                     <td><label for="category">カテゴリ：</label></td>
-                    <td><input type="text" name="category" id="category" value="{{ asset.category }}"></td>
+                    <td>
+                        <select name="category" id="category">
+                            {% for asset_category in asset_category_list %}
+                            <option value="{{ asset_category.id }}"
+                                {% if asset_category.name == asset.category.name %}
+                                    selected 
+                                {% endif %}>
+                                {{ asset_category.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for="asset_name">資産名：</label></td>
@@ -43,24 +54,37 @@
                 <input type="checkbox" name="is_credit" id="is_credit"> -->
                 <tr>
                     <td><label for="withdrawal_account">引き落とし口座：</label></td>
-                    <td><input type="text" name="withdrawal_account" id="withdrawal_account"
-                            value="{{ asset.withdrawal_account }}"></td>
+                    <td>
+                        <select name="withdrawal_account" id="withdrawal_account">
+                            <option value="0">- 選択してください -</option>
+                            {% for withdrawal in asset_list %}
+                            <option value="{{ withdrawal.id }}"
+                                {% if withdrawal.id == asset.withdrawal_account.id %}
+                                    selected
+                                {% endif %}>
+                                {{ withdrawal.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </td>
                 </tr>
                 <tr>
-                    <td><label for="payment_due_date">決済日：</label></td>
-                    <td><input type="datetime" name="payment_due_date" id="payment_due_date"
-                            value="{{ asset.payment_due_date }}"></td>
+                    <td><label for="payment_due_day">決済日：</label></td>
+                    <td><input type="number" name="payment_due_day" id="payment_due_day"
+                            value="{{ asset.payment_due_day }}"></td>
                 </tr>
                 <tr>
-                    <td><label for="payment_confirmation_date">支払額確定日：</label></td>
-                    <td><input type="datetime" name="payment_confirmation_date" id="payment_confirmation_date"
-                            value="{{ asset.payment_confirmation_date }}"></td>
+                    <td><label for="payment_confirmation_day">支払額確定日：</label></td>
+                    <td><input type="number" name="payment_confirmation_day" id="payment_confirmation_day"
+                            value="{{ asset.payment_confirmation_day }}"></td>
                 </tr>
             </tbody>
         </table>
         <input type="submit" value="更新">
     </form>
     {% endif %}
+    <a href="{% url 'budgeting:asset_list' %}">資産一覧へ</a>
+    <a href="{% url 'budgeting:asset_category_list' %}">資産カテゴリ一覧へ</a>
 </body>
 
 </html>
