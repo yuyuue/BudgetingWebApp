@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Flow Category List</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <h1>利用履歴カテゴリ一覧</h1>
+    {% if cashflow_category_list %}
+    <h2>消費</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>カテゴリ名</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cashflow_category in cashflow_category_list %}
+            {% if not cashflow_category.is_income %}
+            <tr>
+                <td>
+                    <a href="{% url 'budgeting:cashflow_category_update' cashflow_category.id %}">{{ cashflow_category.name }}</a>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <h2>収入</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>カテゴリ名</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cashflow_category in cashflow_category_list %}
+            {% if cashflow_category.is_income %}
+            <tr>
+                <td>
+                    <a href="{% url 'budgeting:cashflow_category_update' cashflow_category.id %}">{{ cashflow_category.name }}</a>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    <a href="{% url 'budgeting:cashflow_category_create' %}">追加</a>
+    <hr>
+    <h2>各種リンク</h2>
+    <a href="{% url 'budgeting:asset_list' %}">資産一覧へ</a>
+    <br>
+    <a href="{% url 'budgeting:asset_category_list' %}">資産カテゴリ一覧へ</a>
+    <br>
+    <a href="{% url 'budgeting:cashflow_list' %}">消費一覧へ</a>
+    <br>
+    <a href="{% url 'budgeting:cashflow_category_list' %}">消費カテゴリ一覧へ</a>
+</body>
+</html>

@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asset Category List</title>
+    <title>Cash Flow List</title>
     <style>
         table,
         th,
@@ -13,32 +12,42 @@
         }
     </style>
 </head>
-
 <body>
-    <h1>資産カテゴリ一覧</h1>
-    {% if asset_category_list %}
+    <h1>利用履歴画面</h1>
+    {% if cashflow_list %}
     <table>
         <thead>
             <tr>
-                <th>No</th>
-                <th>資産カテゴリ</th>
-                <th>クレジット</th>
+                <th>用途</th>
+                <th>カテゴリ</th>
+                <th>金額</th>
+                <th>資産</th>
+                <th>利用日</th>
             </tr>
         </thead>
         <tbody>
-            {% for asset_category in asset_category_list %}
+            {% for cashflow in cashflow_list %}
             <tr>
-                <td>{{ forloop.counter }}</td>
-                <td><a href="{% url 'budgeting:asset_category' asset_category.id %}">{{ asset_category.name }}</a></td>
                 <td>
-                    {% if asset_category.is_credit %}
-                        ○
-                    {% endif %}
+                    <a href="{% url 'budgeting:cashflow_update' cashflow.id %}">{{ cashflow.name }}</a>
+                </td>
+                <td>
+                    {{ cashflow.category }}
+                </td>
+                <td>
+                    {{ cashflow.amount }}
+                </td>
+                <td>
+                    {{ cashflow.asset }}
+                </td>
+                <td>
+                    {{ cashflow.date }}
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <a href="{% url 'budgeting:cashflow_create' %}">追加</a>
     {% endif %}
     <hr>
     <h2>各種リンク</h2>
@@ -50,5 +59,4 @@
     <br>
     <a href="{% url 'budgeting:cashflow_category_list' %}">消費カテゴリ一覧へ</a>
 </body>
-
 </html>

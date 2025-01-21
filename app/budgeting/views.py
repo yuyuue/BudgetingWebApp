@@ -1,9 +1,9 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from django.urls import reverse
-from django.views.generic import DetailView, FormView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
-from .models import Asset, AssetCategory, CashFlow, CashFlowCategory
+from .models import Asset, AssetCategory, Cashflow, CashflowCategory
 
 # Create your views here.
 def mod_asset(request, pk):
@@ -46,28 +46,15 @@ def mod_asset_category(request, pk):
     return HttpResponseRedirect(reverse('budgeting:asset_category', args=(asset_category.id,)))
 
 
-def mod_cash_flow(request, cash_flow_id):
-    cash_flow = get_object_or_404(CashFlow, pk=cash_flow_id)
-    
-    # Modify cash flow fields.
-    cash_flow.name = request.POST['name']
-    cash_flow.amount = request.POST['amount']
-    cash_flow.memo = request.POST['memo']
-
-    cash_flow.save()
-
-    return HttpResponseRedirect(reverse('budgeting:cash_flow', args=(cash_flow.id,)))
-
-
-def mod_cash_flow_category(request, cash_flow_category_id):
-    cash_flow_category = get_object_or_404(CashFlowCategory, pk=cash_flow_category_id)
+def mod_cashflow_category(request, cashflow_category_id):
+    cashflow_category = get_object_or_404(CashflowCategory, pk=cashflow_category_id)
 
     # Modify cash flow category fields.
-    cash_flow_category.name = request.POST['name']
+    cashflow_category.name = request.POST['name']
 
-    cash_flow_category.save()
+    cashflow_category.save()
 
-    return HttpResponseRedirect(reverse('budgeting:cash_flow_category', args=(cash_flow_category.id,)))
+    return HttpResponseRedirect(reverse('budgeting:cashflow_category', args=(cashflow_category.id,)))
 
 
 class AssetListView(ListView):
@@ -82,7 +69,7 @@ class AssetDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
         context['asset_list'] = Asset.objects.all()
-        context["asset_category_list"] = AssetCategory.objects.all()
+        context['asset_category_list'] = AssetCategory.objects.all()
         return context
 
 
@@ -95,25 +82,47 @@ class AssetCategoryDetailView(DetailView):
     model = AssetCategory
     context_object_name = 'asset_category'
 
-class CashFlowListView(ListView):
-    model = CashFlow
-    template_name = 'budgeting/cash_flow_list.html'
-    context_object_name = 'cash_flow_list'
+class CashflowListView(ListView):
+    model = Cashflow
+    context_object_name = 'cashflow_list'
 
 
-class CashFlowDetaiView(DetailView):
-    model = CashFlow
-    template_name = 'budgeting/cash_flow_detail.html'
-    context_object_name = 'cash_flow'
+class CashflowUpdateView(UpdateView):
+    model = Cashflow
+    template_name = 'budgeting/Cashflow_update_form.html'
+    fields = ['name', 'category', 'amount', 'asset', 'date', 'memo']
+    
+    def form_valid(self, form):
+        return super().form_valid(form)
 
 
-class CashFlowCategoryListView(ListView):
-    model = CashFlowCategory
-    template_name = 'budgeting/category_list.html'
-    context_object_name = 'cash_flow_category_list'
+class CashflowCreateView(CreateView):
+    model = Cashflow
+    fields = ['name', 'category', 'amount', 'asset', 'date', 'memo']
+
+    def form_valid(self, form):
+        category = CashflowCategory.objects.get(pk=self.request.POST['category'])
+        asset = Asset.objects.get(pk=self.request.POST['asset'])
+
+        if category.is_income:
+            asset.amount += int(self.request.POST['amount'])
+        else:
+            asset.amount -= int(self.request.POST['amount'])
+        asset.save()
+        
+        return super().form_valid(form)
 
 
-class CashFlowCategoryDetailView(DetailView):
-    model = CashFlowCategory
-    template_name = 'budgeting/category_detail.html'
-    context_object_name = 'cash_flow_category'
+class CashflowCategoryListView(ListView):
+    model = CashflowCategory
+    context_object_name = 'cashflow_category_list'
+
+
+class CashflowCategoryUpdateView(UpdateView):
+    model = CashflowCategory
+    fields = ['name']
+
+
+class CashflowCategoryCreateView(CreateView):
+    model = CashflowCategory
+    fields = ['name', 'is_income']
