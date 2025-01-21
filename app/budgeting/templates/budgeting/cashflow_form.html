@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Flow</title>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <h1>家計簿追加画面</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="更新">
+    </form>
+</body>
+</html>

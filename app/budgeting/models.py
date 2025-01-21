@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 class AssetCategory(models.Model):
@@ -21,17 +22,21 @@ class Asset(models.Model):
     def __str__(self):
         return self.name    
 
-class CashFlowCategory(models.Model):
+
+class CashflowCategory(models.Model):
     name = models.CharField(max_length=50)
     is_income = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return "/budgeting/category"
 
 
-class CashFlow(models.Model):
+class Cashflow(models.Model):
     name = models.CharField(max_length=50)
-    category = models.ForeignKey(CashFlowCategory, on_delete=models.PROTECT)
+    category = models.ForeignKey(CashflowCategory, on_delete=models.PROTECT)
     amount = models.IntegerField(default=0)
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     date = models.DateTimeField()
@@ -39,3 +44,6 @@ class CashFlow(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        return "/budgeting/list"
