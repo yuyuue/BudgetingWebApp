@@ -29,7 +29,7 @@
             {% for asset_category in asset_category_list %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td><a href="{% url 'budgeting:asset_category' asset_category.id %}">{{ asset_category.name }}</a></td>
+                <td><a href="{% url 'budgeting:asset_category_update' asset_category.id %}">{{ asset_category.name }}</a></td>
                 <td>
                     {% if asset_category.is_credit %}
                         ○
@@ -40,6 +40,7 @@
         </tbody>
     </table>
     {% endif %}
+    <a href="{% url 'budgeting:asset_category_create' %}">追加</a>
     <hr>
     <h2>各種リンク</h2>
     <a href="{% url 'budgeting:asset_list' %}">資産一覧へ</a>

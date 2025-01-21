@@ -40,7 +40,7 @@ class Cashflow(models.Model):
     amount = models.IntegerField(default=0)
     asset = models.ForeignKey(Asset, on_delete=models.CASCADE)
     date = models.DateTimeField()
-    memo = models.CharField(null=True, max_length=200)
+    memo = models.CharField(blank=True, max_length=200)
 
     def __str__(self):
         return self.name

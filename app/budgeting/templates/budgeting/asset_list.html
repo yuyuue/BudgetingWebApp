@@ -28,7 +28,7 @@
             {% for asset in asset_list %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td><a href="{% url 'budgeting:asset_detail' asset.id %}">{{ asset.name }}</a></td>
+                <td><a href="{% url 'budgeting:asset_update' asset.id %}">{{ asset.name }}</a></td>
                 <td>{{ asset.category }}</td>
                 <td>{{ asset.amount }}</td>
             </tr>
@@ -36,6 +36,7 @@
         </tbody>
     </table>
     {% endif %}
+    <a href="{% url 'budgeting:asset_create' %}">追加</a>
     <hr>
     <h2>各種リンク</h2>
     <a href="{% url 'budgeting:asset_list' %}">資産一覧へ</a>
