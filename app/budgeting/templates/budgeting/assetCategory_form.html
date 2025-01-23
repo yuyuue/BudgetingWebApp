@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Category</title>
+</head>
+{% include "general/header.html" %}
+<body>
+    <h1>資産カテゴリ編集画面</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="更新">
+    </form>
+</body>
+{% include "general/footer.html" %}
+</html>

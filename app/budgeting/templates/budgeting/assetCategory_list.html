@@ -13,7 +13,7 @@
         }
     </style>
 </head>
-
+{% include "general/header.html" %}
 <body>
     <h1>資産カテゴリ一覧</h1>
     {% if asset_category_list %}
@@ -22,18 +22,25 @@
             <tr>
                 <th>No</th>
                 <th>資産カテゴリ</th>
+                <th>クレジット</th>
             </tr>
         </thead>
-        {% for asset_category in asset_category_list %}
         <tbody>
+            {% for asset_category in asset_category_list %}
             <tr>
                 <td>{{ forloop.counter }}</td>
-                <td><a href="{% url 'budgeting:asset_category' asset_category.id %}">{{ asset_category.name }}</a></td>
+                <td><a href="{% url 'budgeting:asset_category_update' asset_category.id %}">{{ asset_category.name }}</a></td>
+                <td>
+                    {% if asset_category.is_credit %}
+                        ○
+                    {% endif %}
+                </td>
             </tr>
+            {% endfor %}
         </tbody>
-        {% endfor %}
     </table>
     {% endif %}
+    <a href="{% url 'budgeting:asset_category_create' %}">追加</a>
 </body>
-
+{% include "general/footer.html" %}
 </html>
