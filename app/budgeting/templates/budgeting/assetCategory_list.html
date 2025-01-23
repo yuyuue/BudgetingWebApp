@@ -13,7 +13,7 @@
         }
     </style>
 </head>
-
+{% include "general/header.html" %}
 <body>
     <h1>資産カテゴリ一覧</h1>
     {% if asset_category_list %}
@@ -41,15 +41,6 @@
     </table>
     {% endif %}
     <a href="{% url 'budgeting:asset_category_create' %}">追加</a>
-    <hr>
-    <h2>各種リンク</h2>
-    <a href="{% url 'budgeting:asset_list' %}">資産一覧へ</a>
-    <br>
-    <a href="{% url 'budgeting:asset_category_list' %}">資産カテゴリ一覧へ</a>
-    <br>
-    <a href="{% url 'budgeting:cashflow_list' %}">消費一覧へ</a>
-    <br>
-    <a href="{% url 'budgeting:cashflow_category_list' %}">消費カテゴリ一覧へ</a>
 </body>
-
+{% include "general/footer.html" %}
 </html>

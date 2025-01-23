@@ -1,10 +1,28 @@
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, render
 from django.views.generic import CreateView, ListView, UpdateView
 
 from .forms import CashflowForm
 from .models import Asset, AssetCategory, Cashflow, CashflowCategory
 
 # Create your views here.
+def index(request):
+    return render(request, "budgeting/index.html")
+
+
+def approve(request):
+    asset = Asset.objects.get(pk=request.POST["asset_id"])
+    tmp = asset.amount
+    asset.amount = 0
+    asset.save()
+
+    asset = asset.withdrawal_account
+    asset.amount += tmp
+    asset.save()
+
+    return redirect("/budgeting/asset")
+
+    
 class AssetListView(ListView):
     model = Asset
 
@@ -42,7 +60,6 @@ class CashflowListView(ListView):
 class CashflowUpdateView(UpdateView):
     model = Cashflow
     form_class = CashflowForm
-    # fields = ['name', 'category', 'amount', 'asset', 'date', 'memo']
     
     def form_valid(self, form):
         return super().form_valid(form)
@@ -51,7 +68,6 @@ class CashflowUpdateView(UpdateView):
 class CashflowCreateView(CreateView):
     model = Cashflow
     form_class = CashflowForm
-    # fields = ['name', 'category', 'amount', 'asset', 'date', 'memo']
 
     def form_valid(self, form):
         category = CashflowCategory.objects.get(pk=self.request.POST['category'])

@@ -13,6 +13,7 @@
         }
     </style>
 </head>
+{% include "general/header.html" %}
 
 <body>
     <h1>資産管理画面</h1>
@@ -23,6 +24,7 @@
             <th>資産名</th>
             <th>資産カテゴリ</th>
             <th>金額</th>
+            <th>決済ボタン</th>
         </thead>
         <tbody>
             {% for asset in asset_list %}
@@ -31,21 +33,22 @@
                 <td><a href="{% url 'budgeting:asset_update' asset.id %}">{{ asset.name }}</a></td>
                 <td>{{ asset.category }}</td>
                 <td>{{ asset.amount }}</td>
+                {% if asset.category.is_credit %}
+                <td>
+                    <form action="{% url 'budgeting:asset_approval' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="asset_id" value="{{ asset.id }}">
+                        <input type="submit" value="支払い">
+                    </form>
+                </td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>
     </table>
     {% endif %}
     <a href="{% url 'budgeting:asset_create' %}">追加</a>
-    <hr>
-    <h2>各種リンク</h2>
-    <a href="{% url 'budgeting:asset_list' %}">資産一覧へ</a>
-    <br>
-    <a href="{% url 'budgeting:asset_category_list' %}">資産カテゴリ一覧へ</a>
-    <br>
-    <a href="{% url 'budgeting:cashflow_list' %}">消費一覧へ</a>
-    <br>
-    <a href="{% url 'budgeting:cashflow_category_list' %}">消費カテゴリ一覧へ</a>
 </body>
+{% include "general/footer.html" %}
 
 </html>
