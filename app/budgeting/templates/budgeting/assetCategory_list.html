@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asset Category List</title>
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid;
-        }
-    </style>
-</head>
+{% include "general/head.html" %}
 {% include "general/header.html" %}
+
 <body>
     <h1>資産カテゴリ一覧</h1>
     {% if asset_category_list %}
@@ -32,7 +19,7 @@
                 <td><a href="{% url 'budgeting:asset_category_update' asset_category.id %}">{{ asset_category.name }}</a></td>
                 <td>
                     {% if asset_category.is_credit %}
-                        ○
+                    ○
                     {% endif %}
                 </td>
             </tr>
@@ -41,6 +28,8 @@
     </table>
     {% endif %}
     <a href="{% url 'budgeting:asset_category_create' %}">追加</a>
+    {% include "general/bootstrapScript.html" %}
 </body>
 {% include "general/footer.html" %}
+
 </html>

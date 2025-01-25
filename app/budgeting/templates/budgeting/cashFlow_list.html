@@ -1,18 +1,6 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cash Flow List</title>
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid;
-        }
-    </style>
-</head>
+{% include "general/head.html" %}
 {% include "general/header.html" %}
+
 <body>
     <h1>利用履歴画面</h1>
     {% if cashflow_list %}
@@ -29,27 +17,19 @@
         <tbody>
             {% for cashflow in cashflow_list %}
             <tr>
-                <td>
-                    <a href="{% url 'budgeting:cashflow_update' cashflow.id %}">{{ cashflow.name }}</a>
-                </td>
-                <td>
-                    {{ cashflow.category }}
-                </td>
-                <td>
-                    {{ cashflow.amount }}
-                </td>
-                <td>
-                    {{ cashflow.asset }}
-                </td>
-                <td>
-                    {{ cashflow.date }}
-                </td>
+                <td><a href="{% url 'budgeting:cashflow_update' cashflow.id %}">{{ cashflow.name }}</a></td>
+                <td>{{ cashflow.category }}</td>
+                <td>{{ cashflow.amount }}</td>
+                <td>{{ cashflow.asset }}</td>
+                <td>{{ cashflow.date|date:"y/m/d H:i" }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
     {% endif %}
     <a href="{% url 'budgeting:cashflow_create' %}">追加</a>
+    {% include "general/bootstrapScript.html" %}
 </body>
 {% include "general/footer.html" %}
+
 </html>

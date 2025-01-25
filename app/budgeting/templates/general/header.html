@@ -1,12 +1,33 @@
 {% load static %}
-<header>
-    <a href="{% url 'budgeting:index' %}">
-        <img src="{% static 'budgeting/logo.jpg' %}" style="width: 80px;">
-    </a>
-    <br>
-    <a href="{% url 'budgeting:asset_list' %}">資産一覧</a>
-    <a href="{% url 'budgeting:asset_category_list' %}">資産カテゴリ</a>
-    <a href="{% url 'budgeting:cashflow_list' %}">消費</a>
-    <a href="{% url 'budgeting:cashflow_category_list' %}">消費カテゴリ</a>
-    <hr>
-</header>
+<div class="container-fluid">
+    <header class="d-flex flex-wrap align-items-center justify-content-center py-3 mb-4 border-bottom">
+        <a href="{% url 'budgeting:index' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <img class="bi me-2" height="60" src="{% static 'budgeting/logo.jpg' %}">
+            <span class="fs-4">YuYu家計簿</span>
+        </a>
+
+        <ul class="nav nav-pills">
+            <li class="nav-item">
+                <a href="{% url 'budgeting:asset_list' %}" class="nav-link">
+                        資産
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'budgeting:asset_category_list' %}" class="nav-link">
+                        資産カテゴリ
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'budgeting:cashflow_list' %}" class="nav-link">
+                        消費
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'budgeting:cashflow_category_list' %}" class="nav-link">
+                        消費カテゴリ
+                </a>
+            </li>
+        </ul>
+        <hr>
+    </header>
+</div>

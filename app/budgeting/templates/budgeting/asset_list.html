@@ -1,18 +1,4 @@
-<!DOCTYPE html>
-<html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Asset List</title>
-    <style>
-        table,
-        th,
-        td {
-            border: 1px solid;
-        }
-    </style>
-</head>
+{% include "general/head.html" %}
 {% include "general/header.html" %}
 
 <body>
@@ -48,6 +34,7 @@
     </table>
     {% endif %}
     <a href="{% url 'budgeting:asset_create' %}">追加</a>
+    {% include "general/bootstrapScript.html" %}
 </body>
 {% include "general/footer.html" %}
 
