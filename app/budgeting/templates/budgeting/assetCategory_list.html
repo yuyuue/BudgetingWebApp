@@ -2,32 +2,26 @@
 {% include "general/header.html" %}
 
 <body>
-    <h1>資産カテゴリ一覧</h1>
-    {% if asset_category_list %}
-    <table>
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>資産カテゴリ</th>
-                <th>クレジット</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for asset_category in asset_category_list %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td><a href="{% url 'budgeting:asset_category_update' asset_category.id %}">{{ asset_category.name }}</a></td>
-                <td>
+    <div class="container-fluid">
+        <h1>資産カテゴリ一覧</h1>
+        {% if asset_category_list %}
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
+            <div class="list-group">
+                {% for asset_category in asset_category_list %}
+                <a href="{% url 'budgeting:asset_category_update' asset_category.id %}"
+                    class="list-group-item list-group-item-action">
+                    【カテゴリ名】{{ asset_category.name }}
                     {% if asset_category.is_credit %}
-                    ○
+                    （クレジット）
                     {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% endif %}
-    <a href="{% url 'budgeting:asset_category_create' %}">追加</a>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        <a href="{% url 'budgeting:asset_category_create' %}"
+            class="add-btn btn btn-primary position-fixed bottom-0 end-0 m-3">追加</a>
+    </div>
     {% include "general/bootstrapScript.html" %}
 </body>
 {% include "general/footer.html" %}

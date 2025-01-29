@@ -2,39 +2,34 @@
 {% include "general/header.html" %}
 
 <body>
-    <h1>資産管理画面</h1>
-    {% if asset_list %}
-    <table>
-        <thead>
-            <th>No</th>
-            <th>資産名</th>
-            <th>資産カテゴリ</th>
-            <th>金額</th>
-            <th>決済ボタン</th>
-        </thead>
-        <tbody>
-            {% for asset in asset_list %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td><a href="{% url 'budgeting:asset_update' asset.id %}">{{ asset.name }}</a></td>
-                <td>{{ asset.category }}</td>
-                <td>{{ asset.amount }}</td>
-                {% if asset.category.is_credit %}
-                <td>
+    <div class="container-fluid">
+        <h1>資産管理画面</h1>
+        {% if asset_list %}
+        <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
+            <div class="list-group">
+                {% for asset in asset_list %}
+                <a href="{% url 'budgeting:asset_update' asset.id %}" class="list-group-item list-group-item-action">
+                    【資産名】{{ asset.name }}
+                    <br>
+                    【カテゴリ】{{ asset.category }}
+                    <br>
+                    【金額】{{ asset.amount }}
+                    {% if asset.category.is_credit %}
+                    <br>
                     <form action="{% url 'budgeting:asset_approval' %}" method="post">
                         {% csrf_token %}
                         <input type="hidden" name="asset_id" value="{{ asset.id }}">
-                        <input type="submit" value="支払い">
+                        【決済ボタン】<input type="submit" value="支払い">
                     </form>
-                </td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    {% endif %}
-    <a href="{% url 'budgeting:asset_create' %}">追加</a>
-    {% include "general/bootstrapScript.html" %}
+                    {% endif %}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        <a href="{% url 'budgeting:asset_create' %}" class="add-btn btn btn-primary position-fixed bottom-0 end-0 m-3">追加</a>
+        {% include "general/bootstrapScript.html" %}
+    </div>
 </body>
 {% include "general/footer.html" %}
 

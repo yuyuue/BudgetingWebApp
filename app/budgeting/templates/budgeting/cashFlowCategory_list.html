@@ -2,45 +2,46 @@
 {% include "general/header.html" %}
 
 <body>
-    <h1>利用履歴カテゴリ一覧</h1>
-    {% if cashflow_category_list %}
-    <h2>消費</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>カテゴリ名</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for cashflow_category in cashflow_category_list %}
-            {% if not cashflow_category.is_income %}
-            <tr>
-                <td><a href="{% url 'budgeting:cashflow_category_update' cashflow_category.id %}">{{ cashflow_category.name }}</a></td>
-            </tr>
-            {% endif %}
-            {% endfor %}
-        </tbody>
-    </table>
-    <h2>収入</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>カテゴリ名</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for cashflow_category in cashflow_category_list %}
-            {% if cashflow_category.is_income %}
-            <tr>
-                <td><a href="{% url 'budgeting:cashflow_category_update' cashflow_category.id %}">{{ cashflow_category.name }}</a></td>
-            </tr>
-            {% endif %}
-            {% endfor %}
-        </tbody>
-    </table>
-    {% endif %}
-    <a href="{% url 'budgeting:cashflow_category_create' %}">追加</a>
-    {% include "general/bootstrapScript.html" %}
+    <div class="container-fluid">
+        <h1>利用履歴カテゴリ一覧</h1>
+        {% if cashflow_category_list %}
+        <h2>消費</h2>
+        <div class="container-fluid mb-4">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
+                <div class="list-group">
+                    {% for cashflow_category in cashflow_category_list %}
+                    {% if not cashflow_category.is_income %}
+                    <a href="{% url 'budgeting:cashflow_category_update' cashflow_category.id %}"
+                        class="list-group-item list-group-item-action">
+                        {{ cashflow_category.name }}
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if cashflow_category_list %}
+        <h2>収入</h2>
+        <div class="container-fluid">
+            <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
+                <div class="list-group">
+                    {% for cashflow_category in cashflow_category_list %}
+                    {% if cashflow_category.is_income %}
+                    <a href="{% url 'budgeting:cashflow_category_update' cashflow_category.id %}"
+                    class="list-group-item list-group-item-action">
+                    {{ cashflow_category.name }}
+                </a>
+                {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <a href="{% url 'budgeting:cashflow_category_create' %}"
+    class="add-btn btn btn-primary position-fixed bottom-0 end-0 m-3">追加</a>
+</div>
+{% include "general/bootstrapScript.html" %}
 </body>
 {% include "general/footer.html" %}
 

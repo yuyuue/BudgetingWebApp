@@ -1,0 +1,16 @@
+* {
+  font-family: "M PLUS Rounded 1c", "Noto Sans JP", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.list-group {
+  width: 100%;
+  max-width: 460px;
+  margin-inline: 1.5rem;
+}
+
+.add-btn {
+  z-index: 1000;
+}
