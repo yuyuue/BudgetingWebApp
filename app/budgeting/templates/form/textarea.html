@@ -1,0 +1,9 @@
+<div class="mb-3">
+    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+    <br>
+    {% for widget in field.subwidgets %}
+        <textarea name="{{ field.name }}" id="{{ field.id_for_label }}"
+            cols="{{ widget.data.attrs.cols }}" rows="{{ widget.data.attrs.rows }}"
+            class="form-control">{{ field.value }}</textarea>
+    {% endfor %}
+</div>

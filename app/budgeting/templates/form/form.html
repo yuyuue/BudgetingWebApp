@@ -1,0 +1,32 @@
+{% for field in form %}
+    {{ field.errors }}
+    {% comment %} テキストインプット {% endcomment %}
+    {% if field.widget_type == "text" %}
+        {% include "form/textInput.html" %}
+    {% endif %}
+
+    {% comment %} 数値インプット {% endcomment %}
+    {% if field.widget_type == "number" %}
+        {% include "form/numberInput.html" %}
+    {% endif %}
+
+    {% comment %} チェックボックス {% endcomment %}
+    {% if field.widget_type == "checkbox" %}
+        {% include "form/checkbox.html" %}
+    {% endif %}
+
+    {% comment %} セレクトインプット {% endcomment %}
+    {% if field.widget_type == "select" %}
+        {% include "form/selectInput.html" %}
+    {% endif %}
+
+    {% comment %} テキストエリア {% endcomment %}
+    {% if field.widget_type == "textarea" %}
+        {% include "form/textarea.html" %}
+    {% endif %}
+
+    {% comment %} DateTimeエリア {% endcomment %}
+    {% if field.widget_type == "datetime" %}
+        {% include "form/datetime.html" %}
+    {% endif %}
+{% endfor %}

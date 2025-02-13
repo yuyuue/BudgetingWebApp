@@ -10,7 +10,7 @@
                 {% for asset_category in asset_category_list %}
                 <a href="{% url 'budgeting:asset_category_update' asset_category.id %}"
                     class="list-group-item list-group-item-action">
-                    【カテゴリ名】{{ asset_category.name }}
+                    {{ asset_category.name }}
                     {% if asset_category.is_credit %}
                     （クレジット）
                     {% endif %}
@@ -25,5 +25,3 @@
     {% include "general/bootstrapScript.html" %}
 </body>
 {% include "general/footer.html" %}
-
-</html>

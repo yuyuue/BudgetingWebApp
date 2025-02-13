@@ -1,0 +1,11 @@
+<div class="mb-3">
+    <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+    <br>
+    {% for widget in field.subwidgets %}
+        <input type="{{ field.widget_type }}" name="{{ field.name }}"
+            {% if not field.value == 'None' %} value="{{ field.value }}" {% endif %}
+            maxlength="{{ widget.data.attrs.maxlength }}" id="{{ field.id_for_label }}"
+            class="form-control"
+            {% if widget.data.required %}required {% endif %}>
+    {% endfor %}
+</div>

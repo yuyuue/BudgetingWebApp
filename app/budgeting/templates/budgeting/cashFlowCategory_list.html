@@ -4,8 +4,8 @@
 <body>
     <div class="container-fluid">
         <h1>利用履歴カテゴリ一覧</h1>
-        {% if cashflow_category_list %}
         <h2>消費</h2>
+        {% if cashflow_category_list %}
         <div class="container-fluid mb-4">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
                 <div class="list-group">
@@ -21,8 +21,8 @@
             </div>
         </div>
         {% endif %}
-        {% if cashflow_category_list %}
         <h2>収入</h2>
+        {% if cashflow_category_list %}
         <div class="container-fluid">
             <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
                 <div class="list-group">
@@ -44,5 +44,3 @@
 {% include "general/bootstrapScript.html" %}
 </body>
 {% include "general/footer.html" %}
-
-</html>
