@@ -5,7 +5,13 @@ from django.shortcuts import redirect, render
 from django.views.generic import CreateView, ListView, UpdateView
 
 from .forms import AssetForm, CashflowForm
-from .models import Asset, AssetCategory, Cashflow, CashflowCategory, CashflowSubCategory
+from .models import (
+    Asset,
+    AssetCategory,
+    Cashflow,
+    CashflowCategory,
+    CashflowSubCategory,
+)
 
 
 # Create your views here.
@@ -77,8 +83,13 @@ class CashflowCreateView(CreateView):
         asset = Asset.objects.get(pk=self.request.POST["asset"])
 
         if sub_category.parent_category.is_income:
+            # 収入の場合
             asset.amount += int(self.request.POST["amount"])
         else:
+            # 支出の場合
+            # 予算超過の場合はリダイレクト
+            if asset.amount < int(self.request.POST["amount"]) and not asset.category.is_credit:
+                return HttpResponseRedirect("/budgeting/cashflow")
             asset.amount -= int(self.request.POST["amount"])
         asset.save()
 
