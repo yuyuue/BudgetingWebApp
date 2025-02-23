@@ -22,9 +22,7 @@ class Asset(models.Model):
     withdrawal_account = models.ForeignKey(
         "self", null=True, on_delete=models.PROTECT, blank=True
     )
-    confirmed_payment = models.IntegerField(null=True, blank=True)
-    payment_due_day = models.IntegerField(null=True, blank=True)
-    payment_confirmation_day = models.IntegerField(null=True, blank=True)
+    confirmed_payment = models.IntegerField(blank=True, default=0)
 
     def __str__(self):
         return self.name

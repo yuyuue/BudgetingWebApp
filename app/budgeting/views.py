@@ -1,5 +1,6 @@
 import datetime
 
+from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.views.generic import CreateView, ListView, UpdateView
@@ -19,10 +20,30 @@ def index(request):
     return render(request, "budgeting/index.html")
 
 
+# 先月の支出を確定する
+def confirm(request):
+    # 対象の資産を取得
+    asset = Asset.objects.get(pk=request.POST["asset_id"])
+    
+    # 先月の月を取得
+    now = datetime.datetime.today()
+    last_month = now.month - 1
+
+    # 先月の支出を取得
+    last_month_cashflows = Cashflow.objects.filter(date__month=last_month, asset=asset).aggregate(total_amount=Sum("amount"))
+
+    # 確定額に設定
+    asset.confirmed_payment = -last_month_cashflows['total_amount']
+    asset.save()
+
+    return redirect("/budgeting/asset")
+
+
 def approve(request):
     asset = Asset.objects.get(pk=request.POST["asset_id"])
-    tmp = asset.amount
-    asset.amount = 0
+    tmp = asset.confirmed_payment
+    asset.amount -= tmp
+    asset.confirmed_payment = 0
     asset.save()
 
     asset = asset.withdrawal_account
@@ -88,7 +109,10 @@ class CashflowCreateView(CreateView):
         else:
             # 支出の場合
             # 予算超過の場合はリダイレクト
-            if asset.amount < int(self.request.POST["amount"]) and not asset.category.is_credit:
+            if (
+                asset.amount < int(self.request.POST["amount"])
+                and not asset.category.is_credit
+            ):
                 return HttpResponseRedirect("/budgeting/cashflow")
             asset.amount -= int(self.request.POST["amount"])
         asset.save()

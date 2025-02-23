@@ -11,8 +11,6 @@ class AssetForm(forms.ModelForm):
             "category",
             "amount",
             "withdrawal_account",
-            "payment_due_day",
-            "payment_confirmation_day",
         ]
 
 

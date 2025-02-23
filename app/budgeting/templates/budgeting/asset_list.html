@@ -16,12 +16,15 @@
                     【金額】{{ asset.amount }}
                     {% if asset.category.is_credit %}
                     <br>
+                    【確定額】{{ asset.confirmed_payment }}<br>
                     <form>
                         {% csrf_token %}
                         <input type="hidden" name="asset_id" value="{{ asset.id }}">
                         【決済ボタン】
-                        <input formaction="{% url 'budgeting:asset_approval' %}" formmethod="post" type="submit" value="確定" class="btn btn-primary">
-                        <input formaction="{% url 'budgeting:asset_approval' %}" formmethod="post" type="submit" value="支払い" class="btn btn-primary">
+                        <input formaction="{% url 'budgeting:asset_confirm' %}" formmethod="post" type="submit"
+                            value="確定" class="btn btn-primary">
+                        <input formaction="{% url 'budgeting:asset_approval' %}" formmethod="post" type="submit"
+                            value="支払い" class="btn btn-primary">
                     </form>
                     {% endif %}
                 </a>
@@ -29,7 +32,8 @@
             </div>
         </div>
         {% endif %}
-        <a href="{% url 'budgeting:asset_create' %}" class="add-btn btn btn-primary position-fixed bottom-0 end-0 m-3">追加</a>
+        <a href="{% url 'budgeting:asset_create' %}"
+            class="add-btn btn btn-primary position-fixed bottom-0 end-0 m-3">追加</a>
         {% include "general/bootstrapScript.html" %}
     </div>
 </body>

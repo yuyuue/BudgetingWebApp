@@ -14,6 +14,7 @@ urlpatterns = [
     path("asset/", views.AssetListView.as_view(), name='asset_list'),
     path("asset/<int:pk>/", views.AssetUpdateView.as_view(), name='asset_update'),
     path("asset/create", views.AssetCreateView.as_view(), name='asset_create'),
+    path("asset/confirm", views.confirm, name='asset_confirm'),
     path("asset/approve", views.approve, name='asset_approval'),
     path("asset/category/", views.AssetCategoryListView.as_view(), name='asset_category_list'),
     path("asset/category/<int:pk>/", views.AssetCategoryUpdateView.as_view(), name='asset_category_update'),
